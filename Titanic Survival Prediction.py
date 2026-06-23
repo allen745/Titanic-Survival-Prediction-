@@ -98,3 +98,63 @@ X_test_prediction = model.predict(X_test)
 
 test_data_accuracy = accuracy_score(Y_test, X_test_prediction)
 print('Accuracy score of test data : ', test_data_accuracy)
+
+
+
+# -------------------------------
+# Titanic Survival Prediction System
+# -------------------------------
+
+print("\n🚢 Titanic Survival Prediction System")
+
+# Taking user input
+
+pclass = int(input("Enter Passenger Class (1/2/3): "))
+sex = input("Enter Gender (male/female): ")
+age = float(input("Enter Age: "))
+sibsp = int(input("Enter number of Siblings/Spouse: "))
+parch = int(input("Enter number of Parents/Children: "))
+fare = float(input("Enter Ticket Fare: "))
+embarked = input("Enter Embarked (S/C/Q): ")
+
+
+# Encoding user input
+
+if sex.lower() == "male":
+    sex = 0
+else:
+    sex = 1
+
+
+if embarked.upper() == "S":
+    embarked = 0
+elif embarked.upper() == "C":
+    embarked = 1
+else:
+    embarked = 2
+
+
+# Creating dataframe for prediction
+
+new_passenger = pd.DataFrame({
+    'Pclass':[pclass],
+    'Sex':[sex],
+    'Age':[age],
+    'SibSp':[sibsp],
+    'Parch':[parch],
+    'Fare':[fare],
+    'Embarked':[embarked]
+})
+
+
+# Prediction
+
+prediction = model.predict(new_passenger)
+
+
+# Result
+
+if prediction[0] == 1:
+    print("\n✅ Passenger Survived Titanic")
+else:
+    print("\n❌ Passenger Did Not Survive Titanic")
